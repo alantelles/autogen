@@ -31,21 +31,12 @@ class AutoGenTask extends DefaultTask {
 
     @TaskAction
     void gerar() {
-        println "Raiz: ${raiz.get()}"
-        println "Argumentos: $taskArgs"
+
         ConfigGerador config = configs.get().find {it.nome == gerador }
         if (!config) {
             throw new UnsupportedOperationException("Gerador $gerador não está registrado")
         }
-        String texto = """
-Gerador: 
-\tNome: $config.nome
-\tTemplate: $config.template
-\tArquivo saída: $config.arquivoSaida
-\tParams: $config.params ${config.params == null ? "[utilizando configuração pai ${parentParams.get()}]" : ""}
-"""
-        println texto
-
+        println("Executando geração para $config.nome")
         AutoGenProcessor processor = new AutoGenProcessor(
                 parentParams: parentParams.get(),
                 configGerador: config,

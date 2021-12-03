@@ -80,9 +80,12 @@ class AutoGenProcessor {
         String previous = ""
         parts.each {
             previous = "${ previous == "" ? it : previous + '/' + it}"
-            Boolean ok = new File(previous).mkdir()
-            if (!ok) {
-                throw new RuntimeException("Não foi possível criar o caminho de saída do arquivo")
+            File caminho = new File(previous)
+            if (!caminho.exists()) {
+                Boolean ok = caminho.mkdir()
+                if (!ok) {
+                    throw new RuntimeException("Não foi possível criar o caminho de saída do arquivo")
+                }
             }
         }
         return true
