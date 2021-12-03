@@ -10,5 +10,6 @@ class ConfigGerador {
     String arquivoSaida
     String nome
     List<String> params
+    Closure<Map<String, String>> processarArgs
 
 }
