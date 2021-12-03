@@ -27,7 +27,7 @@ class AutoGenHelpTask extends DefaultTask {
         }
 
         List<String> paramsUsados = config.params == null ? parentParams.get() : config.params
-        String argsExemplo = paramsUsados.collect {"--${it}='argumento'"}.join(" ")
+        String argsExemplo = paramsUsados.collect {"--${it}=argumento"}.join(" ")
         String textoAjuda = """AUTOGEN - GERADOR DE CODIGO BASEADO EM TEMPLATE
 Uso do gerador "$config.nome" :
 \tNome: $config.nome
