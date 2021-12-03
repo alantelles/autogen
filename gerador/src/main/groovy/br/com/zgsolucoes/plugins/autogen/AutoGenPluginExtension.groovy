@@ -9,4 +9,6 @@ interface AutoGenPluginExtension {
 
     Property<String> getRaiz()
 
+    Property<String> getPastaTemplates()
+
 }

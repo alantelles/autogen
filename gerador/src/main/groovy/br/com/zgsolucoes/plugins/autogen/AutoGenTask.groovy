@@ -12,6 +12,10 @@ class AutoGenTask extends DefaultTask {
     @Input
     ListProperty<ConfigGerador> configs
 
+    @Option(option = "gerador", description = "Nome do gerador a ser utilizado")
+    @Input
+    String gerador
+
     @Option(option = "taskArgs", description = "Argumentos a serem utilizados pela tarefa")
     @Input
     String taskArgs
@@ -19,20 +23,33 @@ class AutoGenTask extends DefaultTask {
     @Input
     Provider<String> raiz
 
+    @Input
+    Provider<String> pastaTemplates
+
     @TaskAction
     void gerar() {
         println "Raiz: ${raiz.get()}"
         println "Argumentos: $taskArgs"
-        configs.get().each {
-            String texto = """
-Gerador: 
-\tNome: $it.nome
-\tTemplate: $it.template
-\tArquivo saída: $it.arquivoSaida
-"""
-            String content = new File('tops.txt').text
-            new File('tops2.txt').write("${content}${texto}")
+        // configs.get().each { ConfigGerador config ->
+        ConfigGerador config = configs.get().find {it.nome == gerador }
+        if (!config) {
+            throw new UnsupportedOperationException("Gerador $gerador não está registrado")
         }
+        String texto = """
+Gerador: 
+\tNome: $config.nome
+\tTemplate: $config.template
+\tArquivo saída: $config.arquivoSaida
+"""
+        println texto
+        // AutoGenProcessor processor = new AutoGenProcessor(config, taskArgs, raiz.get())
+        AutoGenProcessor processor = new AutoGenProcessor(
+                configGerador: config,
+                taskArgs: taskArgs,
+                raiz: raiz.get(),
+                pastaTemplates: pastaTemplates.get()
+        )
+        processor.run()
     }
 
 }
