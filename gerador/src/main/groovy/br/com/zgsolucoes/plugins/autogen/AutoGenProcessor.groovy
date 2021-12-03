@@ -60,7 +60,7 @@ class AutoGenProcessor {
             String conteudo = formatarTemplate()
             println "O arquivo gerado será gravado em $caminhoSaida"
             try {
-                new File(caminhoSaida[0..caminhoSaida.lastIndexOf("/")]).mkdirs()
+                mkdirs(caminhoSaida)
                 File saida = new File(caminhoSaida)
                 saida.write(conteudo)
                 println("Arquivo gerado em $caminhoSaida com sucesso!")
@@ -71,6 +71,21 @@ class AutoGenProcessor {
             println("O arquivo $caminhoSaida já existe. Não será sobreescrito.")
             println("Encerrando tarefa.")
         }
+    }
+
+    static private Boolean mkdirs(String caminhoArquivo) {
+        println "Criando caminho para arquivo de saída."
+        String pastaDestino = caminhoArquivo[0..caminhoArquivo.lastIndexOf("/") - 1]
+        List<String> parts = pastaDestino.split("/")
+        String previous = ""
+        parts.each {
+            previous = "${ previous == "" ? it : previous + '/' + it}"
+            Boolean ok = new File(previous).mkdir()
+            if (!ok) {
+                throw new RuntimeException("Não foi possível criar o caminho de saída do arquivo")
+            }
+        }
+        return true
     }
 
 }
