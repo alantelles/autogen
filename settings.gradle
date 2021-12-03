@@ -1,2 +1,3 @@
 rootProject.name = 'autogen'
-include 'geradores'
+include 'gerador'
+

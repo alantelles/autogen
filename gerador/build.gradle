@@ -1,0 +1,48 @@
+plugins {
+    id 'groovy'
+    id 'java-gradle-plugin'
+    id 'maven-publish'
+}
+
+gradlePlugin {
+    plugins {
+        simplePlugin {
+            id = 'br.com.zgsolucoes.plugins.autogen'
+            implementationClass = 'br.com.zgsolucoes.plugins.autogen.AutoGenPlugin'
+        }
+    }
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId = 'br.com.zgsolucoes.plugins'
+            artifactId = 'autogen'
+            version = '1.0'
+
+            from components.java
+        }
+    }
+}
+
+group 'br.com.zgsolucoes.plugins.autogen'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+}
+
+
+dependencies {
+    compileOnly 'org.codehaus.groovy:groovy-all:3.0.9'
+    testImplementation 'org.spockframework:spock-core:2.0-groovy-3.0'
+    testImplementation 'org.codehaus.groovy:groovy-all:3.0.9'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+build.dependsOn('clean')
+publishToMavenLocal.dependsOn('build')

@@ -3,7 +3,8 @@ plugins {
     id 'java'
 }
 
-group 'br.com.zgsolucoes'
+
+group 'br.com.zgsolucoes.plugins.autogen'
 version '1.0-SNAPSHOT'
 
 repositories {
@@ -12,8 +13,10 @@ repositories {
 
 dependencies {
     implementation 'org.codehaus.groovy:groovy-all:3.0.5'
-    testImplementation platform("org.spockframework:spock-bom:2.0-groovy-3.0")
-    testImplementation('org.spockframework:spock-core')
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.0'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
 }
 
 test {
