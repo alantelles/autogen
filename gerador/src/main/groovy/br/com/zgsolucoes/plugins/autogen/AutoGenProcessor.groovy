@@ -38,7 +38,6 @@ class AutoGenProcessor {
         checarNumeroArgumentos()
         parsearArgumentos()
         gerarArquivo()
-        println(parsed)
     }
 
     private String carregarTemplate() {
@@ -62,10 +61,21 @@ class AutoGenProcessor {
                 .createTemplate("$raiz/${configGerador.arquivoSaida}")
                 .make(parsed)
                 .toString()
-        String conteudo = formatarTemplate()
-        println "O arquivo gerado será gravado em $caminhoSaida"
-        new File(caminhoSaida).write(conteudo)
-        println("Arquivo gerado com sucesso")
+        if (!(new File(caminhoSaida).exists())) {
+            String conteudo = formatarTemplate()
+            println "O arquivo gerado será gravado em $caminhoSaida"
+            try {
+                new File(caminhoSaida[0..caminhoSaida.lastIndexOf("/")]).mkdirs()
+                File saida = new File(caminhoSaida)
+                saida.write(conteudo)
+                println("Arquivo gerado em $caminhoSaida com sucesso!")
+            } catch (IOException e) {
+                throw new IOException("Arquivo não pôde ser gerado: $e.message")
+            }
+        } else {
+            println("O arquivo $caminhoSaida já existe. Não será sobreescrito.")
+            println("Encerrando tarefa.")
+        }
     }
 
 }

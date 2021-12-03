@@ -1,5 +1,9 @@
 package br.com.zgsolucoes.plugins.autogen
 
+import groovy.transform.ToString
+
+
+@ToString
 class ConfigGerador {
 
     String template
@@ -9,10 +13,6 @@ class ConfigGerador {
 
     static ConfigGerador criar (Map<String, Object> args) {
         return new ConfigGerador(*:args)
-    }
-
-    String toString() {
-        return "template: ${template}\narquivoSaida: $arquivoSaida\nnome: $nome\nparams: $params"
     }
 
 }
