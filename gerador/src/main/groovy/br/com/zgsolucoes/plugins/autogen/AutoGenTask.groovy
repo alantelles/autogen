@@ -24,6 +24,9 @@ class AutoGenTask extends DefaultTask {
     Provider<String> raiz
 
     @Input
+    ListProperty<String> parentParams
+
+    @Input
     Provider<String> pastaTemplates
 
     @TaskAction
@@ -40,10 +43,12 @@ Gerador:
 \tNome: $config.nome
 \tTemplate: $config.template
 \tArquivo saída: $config.arquivoSaida
+\tParams: $config.params
 """
         println texto
-        // AutoGenProcessor processor = new AutoGenProcessor(config, taskArgs, raiz.get())
+
         AutoGenProcessor processor = new AutoGenProcessor(
+                parentParams: parentParams.get(),
                 configGerador: config,
                 taskArgs: taskArgs,
                 raiz: raiz.get(),

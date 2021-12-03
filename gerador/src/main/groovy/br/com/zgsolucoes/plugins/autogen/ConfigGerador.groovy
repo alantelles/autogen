@@ -11,8 +11,4 @@ class ConfigGerador {
     String nome
     List<String> params
 
-    static ConfigGerador criar (Map<String, Object> args) {
-        return new ConfigGerador(*:args)
-    }
-
 }

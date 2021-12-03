@@ -4,6 +4,7 @@ import groovy.text.SimpleTemplateEngine
 
 class AutoGenProcessor {
 
+    List<String> parentParams
     ConfigGerador configGerador
     String taskArgs
     String raiz
@@ -14,28 +15,22 @@ class AutoGenProcessor {
 
     SimpleTemplateEngine engine = new SimpleTemplateEngine()
 
-    void checarNumeroArgumentos() {
-        rawArgs = taskArgs.split("--")[1..-1]
-        println("rawArgs: $rawArgs")
-        if (rawArgs.size() != configGerador.params.size()) {
-            String msg = "Número de argumentos passados difere do declarado no gerador."
-            msg = "${msg} (esperado: ${configGerador.params.size()}, fornecido: ${rawArgs.size()})"
-            throw new IllegalArgumentException(msg)
-        }
-    }
-
     void parsearArgumentos() {
-        configGerador.params.each { String nomeArg ->
-            String valorArg = rawArgs.find{it.split("=")[0].strip() == nomeArg.strip()}?.split("=")[1]?.strip()
+        rawArgs = taskArgs.split("--")[1..-1]
+        List<String> paramsUsados = configGerador?.params ?: parentParams
+        println("Parâmetros utilizados: $paramsUsados")
+        println("Argumentos: $rawArgs")
+        paramsUsados.each { String nomeArg ->
+            String valorArg = rawArgs.find{it.split("=")?.first()?.strip() == nomeArg.strip() }
             if (!valorArg) {
                 throw new IllegalArgumentException("Parâmetro obrigatório $nomeArg não encontrado.")
             }
+            valorArg = valorArg.split("=")[1]?.strip()
             parsed.put(nomeArg, valorArg)
         }
     }
 
     void run() {
-        checarNumeroArgumentos()
         parsearArgumentos()
         gerarArquivo()
     }

@@ -13,6 +13,7 @@ class AutoGenPlugin implements Plugin<Project> {
             configs = extension.gerador
             raiz = extension.raiz
             pastaTemplates = extension.pastaTemplates
+            parentParams = extension.params
         }
         project.getTasksByName('gerar', false).first().group = 'autogen'
     }

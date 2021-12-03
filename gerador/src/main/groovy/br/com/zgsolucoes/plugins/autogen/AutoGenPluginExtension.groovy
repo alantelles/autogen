@@ -3,12 +3,18 @@ package br.com.zgsolucoes.plugins.autogen
 import org.gradle.api.provider.ListProperty
 import org.gradle.api.provider.Property
 
-interface AutoGenPluginExtension {
+abstract class AutoGenPluginExtension {
 
-    ListProperty<ConfigGerador> getGerador()
+    abstract ListProperty<ConfigGerador> getGerador()
 
-    Property<String> getRaiz()
+    abstract Property<String> getRaiz()
 
-    Property<String> getPastaTemplates()
+    abstract Property<String> getPastaTemplates()
+
+    abstract ListProperty<String> getParams()
+
+    AutoGenPluginExtension() {
+        params.convention([])
+    }
 
 }
