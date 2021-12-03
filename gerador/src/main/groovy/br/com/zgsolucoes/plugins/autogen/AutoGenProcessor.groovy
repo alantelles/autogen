@@ -17,7 +17,7 @@ class AutoGenProcessor {
 
     void parsearArgumentos() {
         rawArgs = taskArgs.split("--")[1..-1]
-        List<String> paramsUsados = configGerador?.params ?: parentParams
+        List<String> paramsUsados = configGerador.params != null ? configGerador.params : parentParams
         println("Parâmetros utilizados: $paramsUsados")
         println("Argumentos: $rawArgs")
         paramsUsados.each { String nomeArg ->
