@@ -7,11 +7,11 @@ class AutoGenPlugin implements Plugin<Project> {
 
     void apply(Project project) {
         // Add the 'gerador' extension object
-        AutoGenPluginExtension extension = project.extensions.create('configGeradores', AutoGenPluginExtension)
+        AutoGenPluginExtension extension = project.extensions.create('autogen', AutoGenPluginExtension)
         // Add a task that uses configuration from the extension object
         project.tasks.register('gerar', AutoGenTask) {
             configs = extension.gerador
-            raiz = extension.raiz
+            raiz = extension.raizDestino
             pastaTemplates = extension.pastaTemplates
             parentParams = extension.params
         }

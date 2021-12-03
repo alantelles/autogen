@@ -33,7 +33,6 @@ class AutoGenTask extends DefaultTask {
     void gerar() {
         println "Raiz: ${raiz.get()}"
         println "Argumentos: $taskArgs"
-        // configs.get().each { ConfigGerador config ->
         ConfigGerador config = configs.get().find {it.nome == gerador }
         if (!config) {
             throw new UnsupportedOperationException("Gerador $gerador não está registrado")

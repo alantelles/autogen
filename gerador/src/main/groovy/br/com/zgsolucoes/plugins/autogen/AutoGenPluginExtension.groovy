@@ -7,7 +7,7 @@ abstract class AutoGenPluginExtension {
 
     abstract ListProperty<ConfigGerador> getGerador()
 
-    abstract Property<String> getRaiz()
+    abstract Property<String> getRaizDestino()
 
     abstract Property<String> getPastaTemplates()
 
@@ -15,6 +15,7 @@ abstract class AutoGenPluginExtension {
 
     AutoGenPluginExtension() {
         params.convention([])
+        raizDestino.convention("")
     }
 
 }
