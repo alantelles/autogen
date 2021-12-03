@@ -42,7 +42,7 @@ Gerador:
 \tNome: $config.nome
 \tTemplate: $config.template
 \tArquivo saída: $config.arquivoSaida
-\tParams: $config.params
+\tParams: $config.params ${config.params == null ? "[utilizando configuração pai ${parentParams.get()}]" : ""}
 """
         println texto
 
