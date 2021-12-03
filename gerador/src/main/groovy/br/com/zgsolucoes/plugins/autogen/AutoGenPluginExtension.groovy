@@ -16,7 +16,7 @@ abstract class AutoGenPluginExtension {
     AutoGenPluginExtension() {
         params.convention([])
         raizDestino.convention(".")
-        pastaTemplates.convention(".")
+        pastaTemplates.convention("templates")
     }
 
 }
