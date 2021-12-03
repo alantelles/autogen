@@ -15,7 +15,12 @@ class AutoGenPlugin implements Plugin<Project> {
             pastaTemplates = extension.pastaTemplates
             parentParams = extension.params
         }
+        project.tasks.register('ajuda', AutoGenHelpTask) {
+            configs = extension.gerador
+            parentParams = extension.params
+        }
         project.getTasksByName('gerar', false).first().group = 'autogen'
+        project.getTasksByName('ajuda', false).first().group = 'autogen'
     }
 
 }
