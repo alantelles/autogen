@@ -1,11 +1,12 @@
 package br.com.zgsolucoes.plugins.autogen
 
 import org.gradle.api.provider.ListProperty
+import org.gradle.api.provider.MapProperty
 import org.gradle.api.provider.Property
 
 abstract class AutoGenPluginExtension {
 
-    abstract ListProperty<ConfigGerador> getGerador()
+    abstract MapProperty<String, Map<String, Object>> getGerador()
 
     abstract Property<String> getRaizDestino()
 

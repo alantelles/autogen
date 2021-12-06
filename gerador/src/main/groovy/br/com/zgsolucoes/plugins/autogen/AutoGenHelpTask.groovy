@@ -2,6 +2,7 @@ package br.com.zgsolucoes.plugins.autogen
 
 import org.gradle.api.DefaultTask
 import org.gradle.api.provider.ListProperty
+import org.gradle.api.provider.MapProperty
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.TaskAction
 import org.gradle.api.tasks.options.Option
@@ -9,7 +10,7 @@ import org.gradle.api.tasks.options.Option
 class AutoGenHelpTask extends DefaultTask {
 
     @Input
-    ListProperty<ConfigGerador> configs
+    MapProperty<String, Map<String, Object>> configs
 
     @Input
     ListProperty<String> parentParams
@@ -20,7 +21,7 @@ class AutoGenHelpTask extends DefaultTask {
 
     @TaskAction
     void help() {
-        ConfigGerador config = configs.get().find {it.nome == gerador}
+        Map<String, Object> config = configs.get().find {it.key == gerador}?.value
         if (!config) {
             throw new UnsupportedOperationException("Não existe configuração para o gerador $gerador")
         }

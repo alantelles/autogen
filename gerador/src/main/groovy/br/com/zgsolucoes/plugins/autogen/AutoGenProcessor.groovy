@@ -5,9 +5,10 @@ import groovy.text.SimpleTemplateEngine
 class AutoGenProcessor {
 
     List<String> parentParams
-    ConfigGerador configGerador
+    Map<String, Object> configGerador
     String taskArgs
     String raiz
+    String gerador
     String pastaTemplates
 
     List<String> rawArgs
@@ -17,7 +18,7 @@ class AutoGenProcessor {
 
     void parsearArgumentos() {
         rawArgs = taskArgs.split("--")[1..-1]
-        List<String> paramsUsados = configGerador.params != null ? configGerador.params : parentParams
+        List<String> paramsUsados = configGerador.params != null ? configGerador.params as List<String> : parentParams
         println("Parâmetros utilizados: $paramsUsados")
         println("Argumentos: $rawArgs")
         paramsUsados.each { String nomeArg ->
@@ -41,7 +42,7 @@ class AutoGenProcessor {
         try {
             return new File(caminho)?.text
         } catch (IOException ignored) {
-            String msg = "O arquivo de template para o processamento de ${configGerador.nome} não foi encontrado."
+            String msg = "O arquivo de template para o processamento de ${gerador} não foi encontrado."
             msg = "${msg} Local esperado: $caminho"
             throw new FileNotFoundException(msg)
         }
