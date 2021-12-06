@@ -32,7 +32,7 @@ class AutoGenProcessor {
 
     void run() {
         parsearArgumentos()
-        configGerador.processarArgs.call(parsed)
+        configGerador.processarArgs?.call(parsed)
         gerarArquivo()
     }
 
