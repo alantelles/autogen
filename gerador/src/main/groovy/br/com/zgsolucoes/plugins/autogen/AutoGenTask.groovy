@@ -33,7 +33,7 @@ class AutoGenTask extends DefaultTask {
     @TaskAction
     void gerar() {
 
-        Map<String, Object> config = configs.get().find {k, v -> k == gerador }?.value
+        Map<String, Object> config = configs.get().get(gerador)
         if (!config) {
             throw new UnsupportedOperationException("Gerador $gerador não está registrado")
         }
